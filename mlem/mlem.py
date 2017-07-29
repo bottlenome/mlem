@@ -6,6 +6,19 @@ from numpy import sin, cos
 import time
 import json
 
+sino = None
+shape = None
+
+
+def set_sino(img):
+    global sino
+    sino = img
+
+
+def set_shape(size):
+    global shape
+    shape = size
+
 
 def show(img):
     print(np.max(img))
@@ -129,6 +142,13 @@ shift = 0
 def wrap_foward_projection(x, limit=255.0):
     x = x.reshape(shape)
     return np.sum(np.abs(forward_projection(x, sino.shape) - sino)) + shift
+
+
+def wrap_mse(x, limit=255.0):
+    global shape
+    global sino
+    x = x.reshape(shape)
+    return np.sum((forward_projection(x, sino.shape) - sino) ** 2)
 
 
 def wrap_new(x, limit=255.0):
