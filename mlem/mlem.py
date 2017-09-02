@@ -144,6 +144,14 @@ def wrap_foward_projection(x, limit=255.0):
     return np.sum(np.abs(forward_projection(x, sino.shape) - sino)) + shift
 
 
+def wrap_l1(x, limit=255.0):
+    global shape
+    global sino
+    x = x.reshape(shape)
+    Ax = forward_projection(x, sino.shape)
+    return np.sum((Ax - sino) ** 2) + np.sum(np.abs(x))
+
+
 def wrap_mse(x, limit=255.0):
     global shape
     global sino
@@ -220,8 +228,14 @@ def MLEM(img, iteration=100):
 
 
 if __name__ == '__main__':
+    """
     ref = Image.open('./test/img/Head-480x480.png')
     ref = ref.convert('L')
     numpy_ref = np.array(ref, dtype=float)
     numpy_ref.flags.writeable = True
     MLEM(numpy_ref)
+    """
+
+    sino = np.zeros((8, 8))
+    x = np.ones((8, 8)) * 128
+    print(wrap_mse(x))
