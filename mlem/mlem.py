@@ -149,7 +149,8 @@ def wrap_l1(x, limit=255.0):
     global sino
     x = x.reshape(shape)
     Ax = forward_projection(x, sino.shape)
-    return np.sum((Ax - sino) ** 2) + np.sum(np.abs(x))
+    lamb = 0.1
+    return np.sum((Ax - sino) ** 2) + lamb + np.sum(np.abs(x))
 
 
 def wrap_mse(x, limit=255.0):
