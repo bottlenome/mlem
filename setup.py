@@ -6,5 +6,5 @@ setup(
     packages=find_packages("mlem"),
     install_requires=['numpy', 'Pillow'],
     tests_require=['pytest'],
-    package_dir={'': 'src'}
+    package_dir={'': 'mlem'}
 )
