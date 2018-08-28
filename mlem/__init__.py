@@ -1,1 +1,1 @@
-from mlem import *
+from . import mlem
